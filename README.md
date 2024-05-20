@@ -77,8 +77,9 @@ The file `server/models.py` defines the model classes **without relationships**.
 Use the following commands to create the initial database `app.db`:
 
 ```console
-export FLASK_APP=server/app.py
+cd server
 flask db init
+flask db migrate -m 'initial model'
 flask db upgrade head
 ```
 
@@ -97,9 +98,9 @@ Set serialization rules to limit the recursion depth.
 Run the migrations and seed the database:
 
 ```console
-flask db revision --autogenerate -m 'message'
+flask db migrate -m 'implement relationships'
 flask db upgrade head
-python server/seed.py
+python seed.py
 ```
 
 > If you aren't able to get the provided seed file working, you are welcome to
@@ -218,7 +219,8 @@ If the `Scientist` is created successfully, send back a response with the new
 {
   "id": 3,
   "name": "Evan Horizon",
-  "field_of_study": "astronavigation"
+  "field_of_study": "astronavigation",
+  "missions": []
 }
 ```
 
@@ -250,7 +252,8 @@ updated `Scientist` and a 202 `accepted` status code:
 {
   "id": 2,
   "name": "Bevan Horizon",
-  "field_of_study": "warp drive tech"
+  "field_of_study": "warp drive tech",
+  "missions": []
 }
 ```
 
